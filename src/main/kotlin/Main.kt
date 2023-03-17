@@ -13,8 +13,8 @@ import java.io.File
 
 private val logger = KotlinLogging.logger {}
 
-//private val noteAPI = NoteAPI(XMLSerializer(File("notes.xml")))
-private val noteAPI = NoteAPI(JSONSerializer(File("notes.json")))
+private val noteAPI = NoteAPI(XMLSerializer(File("notes.xml")))
+//private val noteAPI = NoteAPI(JSONSerializer(File("notes.json")))
 
 
 fun main(args: Array<String>) {
