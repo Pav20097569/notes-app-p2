@@ -5,10 +5,9 @@ import persistence.Serializer
 import persistence.XMLSerializer
 import java.io.File
 
-class NoteAPI(serializerType: Serializer){
+class NoteAPI(serializerType: Serializer) {
 
     private var serializer: Serializer = serializerType
-
 
 
     private var notes = ArrayList<Note>()
@@ -54,10 +53,11 @@ class NoteAPI(serializerType: Serializer){
         return (index >= 0 && index < list.size)
     }
     fun deleteNote(indexToDelete: Int): Note? {
-        return if(isValidListIndex(indexToDelete,notes)){
+        return if (isValidListIndex(indexToDelete, notes)) {
             notes.removeAt(indexToDelete)
-        }else null
+        } else null
     }
+
     fun listNotesBySelectedPriority(priority: Int): String {
         return if (notes.isEmpty()) {
             "No notes stored"
@@ -78,15 +78,18 @@ class NoteAPI(serializerType: Serializer){
         }
     }
 
+   /* fun numberOfNotesByPriority(): Int {
+        return notes.stream()
+            .filter{note: Note -> note.notePriority}
+            .count()
+            .toInt()
+
+    }*/
     fun numberOfNotesByPriority(priority: Int): Int {
-        var counter = 0
-        for (note in notes) {
-            if (note.notePriority == priority) {
-                counter++
-            }
-        }
-        return counter
+        return notes.count { note -> note.notePriority == priority }
     }
+
+
 
     fun updateNote(indexToUpdate: Int, note: Note?): Boolean {
         //find the note object by the index number
@@ -104,9 +107,10 @@ class NoteAPI(serializerType: Serializer){
         return false
     }
 
-    fun isValidIndex(index: Int) :Boolean{
+    fun isValidIndex(index: Int): Boolean {
         return isValidListIndex(index, notes);
     }
+
     @Throws(Exception::class)
     fun load() {
         notes = serializer.read() as ArrayList<Note>
@@ -146,23 +150,21 @@ class NoteAPI(serializerType: Serializer){
     }
 
     fun numberOfArchivedNotes(): Int {
-        var counter = 0
-        for (note in notes) {
-            if (note.isNoteArchived) {
-                counter++
-            }
-        }
-        return counter
+        return notes.stream()
+            .filter{note: Note -> note.isNoteArchived}
+            .count()
+            .toInt()
     }
 
+
+
+
     fun numberOfActiveNotes(): Int {
-        var counter = 0
-        for (note in notes) {
-            if (!note.isNoteArchived) {
-                counter++
-            }
-        }
-        return counter
+        return notes.stream()
+            .filter{note: Note -> !note.isNoteArchived}
+            .count()
+            .toInt()
     }
+
 
 }
