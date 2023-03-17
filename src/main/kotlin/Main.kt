@@ -25,12 +25,10 @@ fun runMenu() {
     do {
         val option = mainMenu()
         when (option) {
-            1 -> addNote()
+            1 -> ModifyNote()
             2 -> listNotes()
-            3 -> updateNote()
-            4 -> deleteNote()
-            5 -> archiveNote()
-            6 -> searchNotes()
+            3 -> archiveNote()
+            4 -> searchNotes()
             20 -> save()
             21 -> load()
             0 -> exitApp()
@@ -46,12 +44,10 @@ fun mainMenu(): Int {
          > |        NOTE KEEPER APP         |
          > ----------------------------------
          > | NOTE MENU                      |
-         > |   1) Add a note                |
+         > |   1) Modify Notes              |
          > |   2) List all notes            |
-         > |   3) Update a note             |
-         > |   4) Delete a note             |
-         > |   5) Archive a note            |
-         > |   6) Search Notes By Title     |
+         > |   3) Archive a note            |
+         > |   4) Search Notes By Title     |
          > ----------------------------------
          > |   20) Save notes               |
          > |   21) Load notes               |
@@ -60,6 +56,26 @@ fun mainMenu(): Int {
          > ==>> """.trimMargin(">")
     )
 }
+
+fun ModifyNote(){
+        val option = readNextInt(
+            """
+                  > --------------------------------
+                  > |   1) Add Note                |
+                  > |   2) Delete Note             |
+                  > |   3) Update Existing Note    |
+                  > --------------------------------
+         > ==>> """.trimMargin(">"))
+
+        when (option) {
+            1 -> addNote()
+            2 -> deleteNote()
+            3 -> updateNote()
+
+            else -> println("Invalid option entered: " + option);
+        }
+    }
+
 
 fun addNote(){
     //logger.info { "addNote() function invoked" }
