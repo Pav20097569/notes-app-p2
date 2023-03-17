@@ -28,6 +28,17 @@ class NoteAPI(serializerType: Serializer){
             listOfNotes
         }
     }
+    fun archiveNote(indexToArchive: Int): Boolean {
+        if (isValidIndex(indexToArchive)) {
+            val noteToArchive = notes[indexToArchive]
+            if (!noteToArchive.isNoteArchived) {
+                noteToArchive.isNoteArchived = true
+                return true
+            }
+        }
+        return false
+    }
+
     fun numberOfNotes(): Int {
         return notes.size
     }
@@ -47,6 +58,36 @@ class NoteAPI(serializerType: Serializer){
             notes.removeAt(indexToDelete)
         }else null
     }
+    fun listNotesBySelectedPriority(priority: Int): String {
+        return if (notes.isEmpty()) {
+            "No notes stored"
+        } else {
+            var listOfNotes = ""
+            for (i in notes.indices) {
+                if (notes[i].notePriority == priority) {
+                    listOfNotes +=
+                        """$i: ${notes[i]}
+                        """.trimIndent()
+                }
+            }
+            if (listOfNotes.equals("")) {
+                "No notes with priority: $priority"
+            } else {
+                "${numberOfNotesByPriority(priority)} notes with priority $priority: $listOfNotes"
+            }
+        }
+    }
+
+    fun numberOfNotesByPriority(priority: Int): Int {
+        var counter = 0
+        for (note in notes) {
+            if (note.notePriority == priority) {
+                counter++
+            }
+        }
+        return counter
+    }
+
     fun updateNote(indexToUpdate: Int, note: Note?): Boolean {
         //find the note object by the index number
         val foundNote = findNote(indexToUpdate)
@@ -74,6 +115,54 @@ class NoteAPI(serializerType: Serializer){
     @Throws(Exception::class)
     fun store() {
         serializer.write(notes)
+    }
+
+    fun listActiveNotes(): String {
+        return if (numberOfActiveNotes() == 0) {
+            "No active notes stored"
+        } else {
+            var listOfActiveNotes = ""
+            for (note in notes) {
+                if (!note.isNoteArchived) {
+                    listOfActiveNotes += "${notes.indexOf(note)}: $note \n"
+                }
+            }
+            listOfActiveNotes
+        }
+    }
+
+    fun listArchivedNotes(): String {
+        return if (numberOfArchivedNotes() == 0) {
+            "No archived notes stored"
+        } else {
+            var listOfArchivedNotes = ""
+            for (note in notes) {
+                if (note.isNoteArchived) {
+                    listOfArchivedNotes += "${notes.indexOf(note)}: $note \n"
+                }
+            }
+            listOfArchivedNotes
+        }
+    }
+
+    fun numberOfArchivedNotes(): Int {
+        var counter = 0
+        for (note in notes) {
+            if (note.isNoteArchived) {
+                counter++
+            }
+        }
+        return counter
+    }
+
+    fun numberOfActiveNotes(): Int {
+        var counter = 0
+        for (note in notes) {
+            if (!note.isNoteArchived) {
+                counter++
+            }
+        }
+        return counter
     }
 
 }

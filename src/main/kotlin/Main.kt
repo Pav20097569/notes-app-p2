@@ -21,9 +21,26 @@ fun main(args: Array<String>) {
     runMenu()
 }
 
-fun mainMenu() : Int {
-    return ScannerInput.readNextInt(""" 
-        
+fun runMenu() {
+    do {
+        val option = mainMenu()
+        when (option) {
+            1 -> addNote()
+            2 -> listNotes()
+            3 -> updateNote()
+            4 -> deleteNote()
+            5 -> archiveNote()
+            20 -> save()
+            21 -> load()
+            0 -> exitApp()
+            else -> System.out.println("Invalid option entered: ${option}")
+        }
+    } while (true)
+}
+
+fun mainMenu(): Int {
+    return readNextInt(
+        """ 
          > ----------------------------------
          > |        NOTE KEEPER APP         |
          > ----------------------------------
@@ -32,31 +49,16 @@ fun mainMenu() : Int {
          > |   2) List all notes            |
          > |   3) Update a note             |
          > |   4) Delete a note             |
-         > |   20) Save                     |
-         > |   21) Load                     |
+         > |   5) Archive a note            |
          > ----------------------------------
+         > |   20) Save notes               |
+         > |   21) Load notes               |
          > |   0) Exit                      |
          > ----------------------------------
-         > ==>> """.trimMargin(">"))
+         > ==>> """.trimMargin(">")
+    )
 }
 
-
-fun runMenu() {
-    do {
-        val option = mainMenu()
-        when (option) {
-            1  -> addNote()
-            2  -> listNotes()
-            3  -> updateNote()
-            4  -> deleteNote()
-            20 -> save()
-            21 -> load()
-            0  -> exitApp()
-            else -> println("Invalid option entered: ${option}")
-
-        }
-    } while (true)
-}
 fun addNote(){
     //logger.info { "addNote() function invoked" }
     val noteTitle = readNextLine("Enter a title for the note: ")
@@ -72,10 +74,26 @@ fun addNote(){
 }
 
 
-fun listNotes(){
-    /*  logger.info { "listNotes() function invoked" } */
-    println(noteAPI.listAllNotes())
+fun listNotes() {
+    if (noteAPI.numberOfNotes() > 0) {
+        val option = readNextInt(
+            """
+                  > --------------------------------
+                  > |   1) View ALL notes          |
+                  > |   2) View ACTIVE notes       |
+                  > |   3) View ARCHIVED notes     |
+                  > --------------------------------
+         > ==>> """.trimMargin(">"))
 
+        when (option) {
+            1 -> listAllNotes();
+            2 -> listActiveNotes();
+            3 -> listArchivedNotes();
+            else -> println("Invalid option entered: " + option);
+        }
+    } else {
+        println("Option Invalid - No notes stored");
+    }
 }
 
 fun updateNote(){
@@ -133,6 +151,31 @@ fun load() {
     }
 }
 
+fun listActiveNotes() {
+    println(noteAPI.listActiveNotes())
+}
+
+fun archiveNote() {
+    listActiveNotes()
+    if (noteAPI.numberOfActiveNotes() > 0) {
+        //only ask the user to choose the note to archive if active notes exist
+        val indexToArchive = readNextInt("Enter the index of the note to archive: ")
+        //pass the index of the note to NoteAPI for archiving and check for success.
+        if (noteAPI.archiveNote(indexToArchive)) {
+            println("Archive Successful!")
+        } else {
+            println("Archive NOT Successful")
+        }
+    }
+}
+
+fun listAllNotes() {
+    println(noteAPI.listAllNotes())
+}
+
+fun listArchivedNotes() {
+    println(noteAPI.listArchivedNotes())
+}
 
 
 
