@@ -1,0 +1,25 @@
+Notes App
+The Notes App is a command-line application that allows the user to create, read, update, and delete notes.
+
+Features
+Create a new note
+View all notes
+View a specific note
+Update a note
+Delete a note
+Technologies Used
+Kotlin
+Gradle
+JUnit
+kotlinx.serialization
+Getting Started
+Clone the repository
+Open the project in IntelliJ IDEA
+Build the project using the Gradle build tool
+Run the main() function in the Main.kt file
+Usage
+To create a new note, select option 1 from the main menu and follow the prompts.
+To view all notes, select option 2 from the main menu.
+To view a specific note, select option 3 from the main menu and enter the note ID.
+To update a note, select option 4 from the main menu and enter the note ID.
+To delete a note, select option 5 from the main menu and enter the note ID.
