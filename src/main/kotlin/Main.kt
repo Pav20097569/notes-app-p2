@@ -30,7 +30,7 @@ fun runMenu() {
             3 -> updateNote()
             4 -> deleteNote()
             5 -> archiveNote()
-            6 -> searchByTitle()
+            6 -> searchNotes()
             20 -> save()
             21 -> load()
             0 -> exitApp()
@@ -74,16 +74,16 @@ fun addNote(){
         println("Add Failed")
     }
 }
-
-fun searchByTitle(){
-    val noteTitle = readNextLine("Enter a title for the note: ")
-    val noteWithTitle = noteAPI.searchByTitle(noteTitle)
-    if (noteTitle.isEmpty()){
-        println("No Notes Found")
-    }else
-        println(noteWithTitle)
-
+fun searchNotes() {
+    val searchTitle = readNextLine("Enter the Title to search by: ")
+    val searchResults = noteAPI.searchByTitle(searchTitle)
+    if (searchResults.isEmpty()) {
+        println("No notes found")
+    } else {
+        println(searchResults)
+    }
 }
+
 fun listNotes() {
     if (noteAPI.numberOfNotes() > 0) {
         val option = readNextInt(
