@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
         plugins {
             kotlin("jvm") version "1.7.21"
             application
-
             kotlin("plugin.serialization") version "1.5.31"
         }
 
@@ -17,12 +16,12 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     // dependencies for logging
-    implementation("io.github.microutils:kotlin-logging:2.1.23")
-    //For Streaming to XML and JSON and CBOR
-    implementation("com.thoughtworks.xstream:xstream:1.4.18")
-    implementation("org.codehaus.jettison:jettison:1.4.1")
-    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-cbor:1.5.0")
-    implementation("org.slf4j:slf4j-simple:1.7.36")}
+    implementation("io.github.microutils:kotlin-logging:3.0.5")
+    //For Streaming to XML and JSON
+    implementation("com.thoughtworks.xstream:xstream:1.4.20")
+    implementation("org.codehaus.jettison:jettison:1.5.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-cbor:1.5.0")
+    implementation("org.slf4j:slf4j-simple:2.0.5")}
 
 
 

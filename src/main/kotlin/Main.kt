@@ -5,7 +5,6 @@ import models.Note
 import java.lang.System.exit
 
 import mu.KotlinLogging
-import persistence.CBORSerializer
 import persistence.JSONSerializer
 import persistence.Serializer
 import persistence.XMLSerializer
@@ -15,8 +14,7 @@ import java.io.File
 private val logger = KotlinLogging.logger {}
 
 //private val noteAPI = NoteAPI(XMLSerializer(File("notes.xml")))
-//private val noteAPI = NoteAPI(JSONSerializer(File("notes.json")))
-private val noteAPI = NoteAPI(CBORSerializer(File("notes.cbor")))
+private val noteAPI = NoteAPI(JSONSerializer(File("notes.json")))
 
 
 fun main(args: Array<String>) {
