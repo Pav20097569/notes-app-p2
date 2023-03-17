@@ -12,8 +12,7 @@ import persistence.JSONSerializer
 import persistence.XMLSerializer
 import java.io.File
 import java.util.*
-import kotlin.test.DefaultAsserter.assertEquals
-import kotlin.test.DefaultAsserter.assertTrue
+
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
