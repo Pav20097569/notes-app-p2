@@ -38,6 +38,14 @@ class NoteAPI(serializerType: Serializer) {
             else "${numberOfNotesByPriority(priority)} notes with priority $priority: $listOfNotes"
         }
 
+    fun deleteCompletedNotes(): Boolean {
+        val completedNotes = notes.filter { it.isCompleted }
+        notes.removeAll(completedNotes)
+        val isDeleted = completedNotes.isNotEmpty()
+        return isDeleted
+    }
+
+
 
     fun archiveNote(indexToArchive: Int): Boolean {
         if (isValidIndex(indexToArchive)) {
