@@ -4,6 +4,8 @@ import models.Note
 import persistence.Serializer
 import persistence.XMLSerializer
 import java.io.File
+import java.util.*
+import kotlin.collections.ArrayList
 
 class NoteAPI(serializerType: Serializer) {
 
@@ -82,6 +84,8 @@ class NoteAPI(serializerType: Serializer) {
             foundNote.noteTitle = note.noteTitle
             foundNote.notePriority = note.notePriority
             foundNote.noteCategory = note.noteCategory
+            foundNote.author = note.author
+            foundNote.isCompleted = note.isCompleted
             return true
         }
 
@@ -95,7 +99,6 @@ class NoteAPI(serializerType: Serializer) {
             notes.removeAt(indexToDelete)
         } else null
     }
-
 
 
 

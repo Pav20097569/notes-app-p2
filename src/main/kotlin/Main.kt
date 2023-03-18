@@ -82,7 +82,8 @@ fun addNote(){
     val noteTitle = readNextLine("Enter a title for the note: ")
     val notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
     val noteCategory = readNextLine("Enter a category for the note: ")
-    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, false))
+    val author = readNextLine("PLease Enter your Name: ")
+    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, false, author, false))
 
     if (isAdded) {
         println("Added Successfully")
@@ -121,30 +122,32 @@ fun listNotes() {
         println("Option Invalid - No notes stored");
     }
 }
-
-fun updateNote(){
- //   logger.info { "updateNote() function invoked" }
-    //logger.info { "updateNotes() function invoked" }
+fun updateNote() {
     listNotes()
+
     if (noteAPI.numberOfNotes() > 0) {
-        //only ask the user to choose the note if notes exist
         val indexToUpdate = readNextInt("Enter the index of the note to update: ")
+
         if (noteAPI.isValidIndex(indexToUpdate)) {
             val noteTitle = readNextLine("Enter a title for the note: ")
             val notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
             val noteCategory = readNextLine("Enter a category for the note: ")
+            val author = readNextLine("Please enter your Name: ")
+            var isCompleted = readNextLine("Is this Note Completed?: (yes/no)").equals("yes",ignoreCase = true)
 
-            //pass the index of the note and the new note details to NoteAPI for updating and check for success.
-            if (noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, false))){
+            if (noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, false, author, isCompleted))) {
                 println("Update Successful")
             } else {
                 println("Update Failed")
             }
         } else {
-            println("There are no notes for this index number")
+            println("Invalid index entered")
         }
+    } else {
+        println("No notes stored")
     }
 }
+
 
 fun deleteNote(){
     // logger.info { "deleteNote() function invoked" }
