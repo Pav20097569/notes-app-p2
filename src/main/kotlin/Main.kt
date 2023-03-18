@@ -64,6 +64,7 @@ fun ModifyNote(){
                   > |   1) Add Note                |
                   > |   2) Delete Note             |
                   > |   3) Update Existing Note    |
+                  > |   4) Delete Completed Notes  |
                   > --------------------------------
          > ==>> """.trimMargin(">"))
 
@@ -71,6 +72,7 @@ fun ModifyNote(){
             1 -> addNote()
             2 -> deleteNote()
             3 -> updateNote()
+            4 -> deleteCompletedNotes()
 
             else -> println("Invalid option entered: " + option);
         }
@@ -145,6 +147,17 @@ fun updateNote() {
         }
     } else {
         println("No notes stored")
+    }
+}
+
+
+fun deleteCompletedNotes() {
+    val isDeleted = noteAPI.deleteCompletedNotes()
+
+    if (isDeleted) {
+        println("Completed notes deleted successfully")
+    } else {
+        println("No completed notes to delete")
     }
 }
 
